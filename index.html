@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f7f4">
+    <meta
+      name="description"
+      content="Scan source code and configuration for common security risks. Files stay in your browser."
+    >
+    <title>Sentinel — Security Scanner</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="#overview" aria-label="Sentinel overview">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 36 36" fill="none">
+              <path d="M18 3.5 30 8v8.8c0 7.3-4.7 12.6-12 16.1C10.7 29.4 6 24.1 6 16.8V8l12-4.5Z" stroke="currentColor" stroke-width="2"/>
+              <path d="M11.5 18.2h4l2.1-5.1 3.3 10.1 2.1-5h2.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span class="brand-copy">
+            <strong>sentinel<span>.</span></strong>
+            <small>SECURITY OPERATIONS</small>
+          </span>
+        </a>
+
+        <div class="sidebar-label">WORKSPACE</div>
+        <nav class="main-nav" aria-label="Main navigation">
+          <a class="nav-link active" href="#overview" aria-current="page">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><rect x="3" y="3" width="5.5" height="5.5" rx="1"/><rect x="11.5" y="3" width="5.5" height="5.5" rx="1"/><rect x="3" y="11.5" width="5.5" height="5.5" rx="1"/><rect x="11.5" y="11.5" width="5.5" height="5.5" rx="1"/></svg>
+            Overview
+          </a>
+          <a class="nav-link" href="#findings">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3 17 6v4.3c0 4.2-2.8 6.6-7 8.7-4.2-2.1-7-4.5-7-8.7V6l7-3Z"/><path d="m7 10 2 2 4-4"/></svg>
+            Findings
+            <span class="nav-count" id="sidebar-count">0</span>
+          </a>
+          <a class="nav-link tools-nav-link" href="#defensive-tools">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="7"/><circle cx="10" cy="10" r="2"/><path d="M10 3v5m7 2h-5m-2 7v-5m-7-2h5"/></svg>
+            Defensive tools
+          </a>
+        </nav>
+
+        <div class="sidebar-note">
+          <span class="note-shield" aria-hidden="true">
+            <svg viewBox="0 0 20 20"><path d="M10 2 17 5v4.8c0 4.2-2.8 6.5-7 8.7-4.2-2.2-7-4.5-7-8.7V5l7-3Z"/><path d="m7 10 2 2 4-4"/></svg>
+          </span>
+          <strong>Private by design</strong>
+          <p>Source and log analysis stay local. System tools use this computer only.</p>
+          <span class="privacy-indicator"><span></span> LOCAL SCAN ACTIVE</span>
+        </div>
+        <div class="sidebar-footer">
+          <span class="footer-dot"></span>
+          Offline scanner <span class="version">v1.0</span>
+        </div>
+      </aside>
+
+      <main id="overview" class="main-content">
+        <header class="topbar">
+          <div class="breadcrumbs">Workspace <span>/</span> <strong>Security overview</strong></div>
+          <div class="topbar-right">
+            <span class="local-badge"><span class="status-dot"></span> Runs locally</span>
+            <span class="avatar" aria-label="Sentinel">S</span>
+          </div>
+        </header>
+
+        <div class="page-content">
+          <section class="welcome-row" aria-labelledby="page-title">
+            <div>
+              <div class="eyebrow"><span class="eyebrow-line"></span> YOUR CODE, IN FOCUS</div>
+              <h1 id="page-title">Security overview</h1>
+              <p class="page-subtitle">Spot common security risks before they make it to production.</p>
+            </div>
+            <button id="new-scan-button" class="button button-dark" type="button">
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 4v12M4 10h12"/></svg>
+              New scan
+            </button>
+          </section>
+
+          <section class="scan-panel" aria-labelledby="scan-heading">
+            <div class="scan-intro">
+              <div class="scan-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 3 21 7v5.5c0 5-3.6 8.2-9 10.5-5.4-2.3-9-5.5-9-10.5V7l9-4Z"/><path d="M8 12h2l1.2-3.1 2.2 6.2 1.3-3.1H17"/></svg>
+              </div>
+              <div>
+                <div class="scan-title-row">
+                  <h2 id="scan-heading">Scan your project</h2>
+                  <span class="offline-chip"><span></span> OFFLINE &amp; PRIVATE</span>
+                </div>
+                <p>Choose source files or a project folder. Your code stays on this device.</p>
+              </div>
+            </div>
+
+            <div
+              id="drop-zone"
+              class="drop-zone"
+              role="group"
+              aria-label="Drop source files to scan"
+            >
+              <div class="upload-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5"/><path d="M5 14v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4"/></svg>
+              </div>
+              <div class="drop-copy">
+                <strong>Drop your files here</strong>
+                <span>Scan source and configuration files right in your browser</span>
+              </div>
+              <div class="drop-actions">
+                <button id="choose-files" class="button button-outline" type="button">Choose files</button>
+                <button id="choose-folder" class="button button-mint" type="button">Choose folder <span aria-hidden="true">↗</span></button>
+              </div>
+            </div>
+            <input id="file-input" type="file" multiple hidden>
+            <input id="folder-input" type="file" webkitdirectory multiple hidden>
+
+            <div id="scan-progress" class="scan-progress" aria-live="polite" hidden>
+              <div class="progress-heading">
+                <span id="progress-label">Preparing scan...</span>
+                <span id="progress-value">0%</span>
+              </div>
+              <div class="progress-track"><span id="progress-bar"></span></div>
+            </div>
+            <div id="scan-message" class="scan-message" role="status" hidden></div>
+            <div class="scan-meta">
+              <span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3 17 6v4.5c0 4-2.8 6.4-7 8.5-4.2-2.1-7-4.5-7-8.5V6l7-3Z"/><path d="m7 10 2 2 4-4"/></svg> Files never leave your browser</span>
+              <span class="meta-divider"></span>
+              <span>13 security checks</span>
+              <span class="meta-divider"></span>
+              <span>Up to 1 MB per file</span>
+            </div>
+          </section>
+
+          <section class="metrics-grid" aria-label="Scan summary">
+            <article class="metric-card">
+              <div class="metric-top"><span>Total findings</span><span class="metric-icon icon-neutral"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3 17 6v4.5c0 4-2.8 6.4-7 8.5-4.2-2.1-7-4.5-7-8.5V6l7-3Z"/><path d="M10 7v4m0 2.5v.1"/></svg></span></div>
+              <div class="metric-value" id="total-findings">—</div>
+              <div class="metric-foot" id="findings-foot">Run a scan to see results</div>
+            </article>
+            <article class="metric-card">
+              <div class="metric-top"><span>Critical &amp; high</span><span class="metric-icon icon-critical"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.8 18 17H2L10 2.8Z"/><path d="M10 7.5v4m0 2.4v.1"/></svg></span></div>
+              <div class="metric-value" id="urgent-findings">—</div>
+              <div class="metric-foot">Needs immediate attention</div>
+            </article>
+            <article class="metric-card">
+              <div class="metric-top"><span>Files scanned</span><span class="metric-icon icon-blue"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 2.5h6l4 4v11H5v-15Z"/><path d="M11 2.5v4h4M8 11h4m-4 3h4"/></svg></span></div>
+              <div class="metric-value" id="files-scanned">—</div>
+              <div class="metric-foot">Source &amp; config files checked</div>
+            </article>
+            <article class="metric-card">
+              <div class="metric-top"><span>Scan status</span><span class="metric-icon icon-mint"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="7.5"/><path d="M6.5 10.3 9 12.5l4.8-5"/></svg></span></div>
+              <div class="metric-value metric-status" id="scan-status"><span class="status-dot status-dot-idle"></span> Ready</div>
+              <div class="metric-foot" id="scan-time">Waiting for your first scan</div>
+            </article>
+          </section>
+
+          <section id="findings" class="findings-section" aria-labelledby="findings-heading">
+            <div class="section-heading">
+              <div>
+                <div class="eyebrow"><span class="eyebrow-line"></span> SECURITY REPORT</div>
+                <h2 id="findings-heading">Findings <span id="findings-count" class="heading-count">0</span></h2>
+                <p class="section-subtitle">Review detected risks and recommended next steps.</p>
+              </div>
+              <button id="export-button" class="button button-export" type="button" disabled>
+                <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v9m0 0 3.5-3.5M10 12 6.5 8.5M4 13.5V17h12v-3.5"/></svg>
+                Export report
+              </button>
+            </div>
+
+            <div class="findings-card">
+              <div class="table-toolbar">
+                <label class="search-box">
+                  <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.8" cy="8.8" r="5.8"/><path d="m13 13 4 4"/></svg>
+                  <input id="search-input" type="search" placeholder="Search findings..." autocomplete="off" aria-label="Search findings">
+                </label>
+                <label class="filter-control">
+                  <span>Severity</span>
+                  <select id="severity-filter" aria-label="Filter findings by severity">
+                    <option value="all">All severities</option>
+                    <option value="critical">Critical</option>
+                    <option value="high">High</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
+                  </select>
+                </label>
+                <span id="visible-count" class="visible-count">0 findings</span>
+              </div>
+              <div class="findings-list" id="findings-list" aria-live="polite">
+                <div class="empty-state" id="empty-state">
+                  <span class="empty-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M12 3 21 7v5.5c0 5-3.6 8.2-9 10.5-5.4-2.3-9-5.5-9-10.5V7l9-4Z"/><path d="m8 12 2.5 2.5 5.5-5.5"/></svg>
+                  </span>
+                  <strong id="empty-title">Your security review starts here</strong>
+                  <span id="empty-copy">Choose a project above to check for common vulnerabilities.</span>
+                </div>
+              </div>
+              <div id="scan-warnings" class="scan-warnings" hidden></div>
+              <div class="table-footer">
+                <span><span class="footer-dot"></span> Showing <strong id="footer-showing">0</strong> of <strong id="footer-total">0</strong> findings</span>
+                <span>Source lines and secret values are never displayed.</span>
+              </div>
+            </div>
+          </section>
+
+          <section id="defensive-tools" class="toolkit-section" aria-labelledby="toolkit-heading">
+            <div class="section-heading toolkit-heading">
+              <div>
+                <div class="eyebrow"><span class="eyebrow-line"></span> DEFENSIVE OPERATIONS</div>
+                <h2 id="toolkit-heading">Security operations</h2>
+                <p class="section-subtitle">Discover your devices, check files and services, and investigate logs — locally and with permission.</p>
+              </div>
+              <span class="scope-badge"><span></span> LOCAL MACHINE ONLY</span>
+            </div>
+
+            <div class="tool-grid">
+              <article class="tool-card" id="host-discovery">
+                <div class="tool-card-heading">
+                  <span class="tool-icon tool-icon-green" aria-hidden="true"><svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="7.5"/><circle cx="10" cy="10" r="3"/><path d="M10 2.5v4m7.5 3.5h-4m-3.5 7.5v-4m-7.5-3.5h4"/></svg></span>
+                  <div><h3>Host discovery</h3><p>View private-network neighbors already known to this computer.</p></div>
+                </div>
+                <div class="tool-callout"><strong>Passive lookup</strong> Reads the local IPv4 neighbor table. It does not probe or scan other devices.</div>
+                <button id="discover-hosts" class="button button-outline" type="button">Discover local neighbors</button>
+                <div id="hosts-status" class="tool-result" role="status">Neighbor discovery is available when Sentinel runs locally.</div>
+                <div id="hosts-results" class="mini-results" hidden></div>
+              </article>
+
+              <article class="tool-card" id="virus-scan">
+                <div class="tool-card-heading">
+                  <span class="tool-icon tool-icon-amber" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M10 2.5 17 5v4.7c0 4.1-2.8 6.4-7 7.8-4.2-1.4-7-3.7-7-7.8V5l7-2.5Z"/><path d="m7.3 10.2 1.7 1.7 3.7-4"/></svg></span>
+                  <div><h3>Virus scan</h3><p>Ask Microsoft Defender to scan a selected file.</p></div>
+                </div>
+                <div class="tool-callout"><strong>Local AV only</strong> Sentinel sends a temporary copy only to this computer and removes it afterward. Defender cloud/sample-submission settings still apply.</div>
+                <div class="tool-actions">
+                  <button id="choose-virus-files" class="button button-outline" type="button">Choose files</button>
+                  <input id="virus-file-input" type="file" multiple hidden>
+                  <span id="defender-status" class="capability-status">Checking Defender...</span>
+                </div>
+                <div id="virus-results" class="tool-result" role="status">Files are not executed by Sentinel. Defender cloud submission follows your Windows security settings.</div>
+              </article>
+
+              <article class="tool-card" id="web-assessment">
+                <div class="tool-card-heading">
+                  <span class="tool-icon tool-icon-blue" aria-hidden="true"><svg viewBox="0 0 20 20"><rect x="3" y="3.5" width="14" height="13" rx="2"/><path d="M3 7h14M6 5.3h.1m2.4 0h.1M6 10h8m-8 3h5"/></svg></span>
+                  <div><h3>Web security check</h3><p>Review security headers on an authorized private web service.</p></div>
+                </div>
+                <form id="web-check-form" class="web-check-form">
+                  <label for="web-target">Private IPv4 URL</label>
+                  <div class="target-input-row">
+                    <input id="web-target" type="url" inputmode="url" placeholder="https://192.168.1.20:8443/" required autocomplete="url" spellcheck="false">
+                    <button id="web-check-button" class="button button-outline" type="submit">Check headers</button>
+                  </div>
+                </form>
+                <div class="tool-callout"><strong>Read-only request</strong> One HTTP HEAD request to the exact private IP you enter. No login, payload, exploit, follow-up path, redirect, or public host.</div>
+                <div id="web-results" class="tool-result" role="status">Only test services you own or have permission to assess.</div>
+              </article>
+
+              <article class="tool-card" id="traffic-hunting">
+                <div class="tool-card-heading">
+                  <span class="tool-icon tool-icon-violet" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M3 16.5h14M4.5 14V9m4 5V5m4 9v-3m4 3V7"/><path d="m3.5 7.5 4-3 4 4 5-5"/></svg></span>
+                  <div><h3>Traffic &amp; threat hunting</h3><p>Look for request bursts and suspicious events in logs you provide.</p></div>
+                </div>
+                <div class="log-controls">
+                  <label for="log-file-input" class="button button-outline">Choose log files</label>
+                  <input id="log-file-input" type="file" accept=".log,.txt,.csv,.json,.jsonl" multiple hidden>
+                  <label class="threshold-control" for="request-threshold">Burst threshold <input id="request-threshold" type="number" min="10" max="1000000" step="10" value="100" inputmode="numeric"> req/min</label>
+                </div>
+                <div class="tool-callout"><strong>Log-based, not a traffic generator</strong> DDoS analysis checks access-log request bursts; threat hunting checks suspicious events. Runs locally, with a 20 MB total and 20,000 lines per-file limit.</div>
+                <div id="traffic-results" class="analysis-panel" aria-live="polite">
+                  <div class="analysis-placeholder">Choose web access or authentication logs to begin a local investigation.</div>
+                </div>
+              </article>
+            </div>
+            <p class="tools-disclaimer">Defensive, read-only analysis only. Heuristic results require investigation; they are not proof of compromise or a substitute for a full security assessment.</p>
+          </section>
+          <footer class="page-footer">
+            <span>Sentinel <span class="footer-dot"></span> A lightweight first look at code security</span>
+            <span>Heuristic checks · Always review findings before taking action</span>
+          </footer>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
